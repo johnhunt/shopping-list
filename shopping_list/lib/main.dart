@@ -46,6 +46,13 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  // Function to delete an item from the list
+  void _deleteItem(int index) {
+    setState(() {
+      items.removeAt(index); // Remove the item at the specified index
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,13 +89,17 @@ class _MyHomePageState extends State<MyHomePage> {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600), // Subheader styling
             ),
             const SizedBox(height: 8), // Add space between subheader and list
-            // Display the list of items
+            // Display the list of items with delete buttons
             Expanded(
               child: ListView.builder(
                 itemCount: items.length,
                 itemBuilder: (context, index) {
                   return ListTile(
-                    title: Text(items[index]),
+                    title: Text(items[index]), // Display the item text
+                    trailing: IconButton(
+                      icon: const Icon(Icons.delete, color: Colors.red), // Delete icon
+                      onPressed: () => _deleteItem(index), // Call _deleteItem when pressed
+                    ),
                   );
                 },
               ),
